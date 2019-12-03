@@ -1,32 +1,28 @@
+public abstract class Creatures extends Entity {
 
-public abstract class Creatures extends Entity{
+    public static final float DEFAULT_SPEED = 3.5f;
+    public static final int DEFAULT_CREATURE_WIDTH = 64, DEFAULT_CREATURE_HEIGHT = 64;
 
-	public static final float DEFAULT_SPEED = 3.5f;
-	public static final int DEFAULT_CREATURE_WIDTH = 64;
-	public static final int DEFAULT_CREATURE_HEIGHT = 64;
-	
-	protected float speed;
-	protected float xMove;
-	protected float yMove;
-	
-	public Creatures(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, width, height);
-		speed = DEFAULT_SPEED;
-		xMove = 0;
-		yMove = 0;
-	}
-	
-	public void move() {
-		if(!checkEntityCollisions(xMove, 0f)) {
-			moveX();
-		}
-		if(!checkEntityCollisions(0f, yMove)) {
-			moveY();
-		}
-		//System.out.println("Cords: " + x + ", " + y);
-	}
-	
-	public void moveX(){
+    protected float speed;
+    protected float xMove, yMove;
+
+    public Creatures(Handler handler, float x, float y, int width, int height){
+        super(handler, x, y, width, height);
+        speed = DEFAULT_SPEED;
+        xMove = 0;
+        yMove = 0;
+    }
+   public void move(){
+        if(!checkEntityCollisions(xMove, 0f)){
+            moveX();
+        }
+        if(!checkEntityCollisions( 0f, yMove)){
+            moveY();
+        }
+        System.out.println("Cords: " + x + "," + y );
+   }
+
+   public void moveX(){
         if(xMove > 0){//Moves Right
             int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
 
@@ -45,8 +41,7 @@ public abstract class Creatures extends Entity{
             }
         }
    }
-	
-	public void moveY(){
+   public void moveY(){
         if(yMove < 0){//Moves Up
             int ty = (int) (y + yMove + bounds.y) / Tile.TILE_HEIGHT;
 
@@ -65,8 +60,8 @@ public abstract class Creatures extends Entity{
             }
         }
    }
-	
-	protected boolean collisionWithTile(int x, int y){
+
+   protected boolean collisionWithTile(int x, int y){
         return handler.getWorld().getTile(x, y).isSolid();
    }
 
@@ -97,5 +92,4 @@ public abstract class Creatures extends Entity{
     public void setyMove(float yMove) {
         this.yMove = yMove;
     }
-	
 }

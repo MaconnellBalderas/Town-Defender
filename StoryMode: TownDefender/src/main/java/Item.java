@@ -1,67 +1,69 @@
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Item {
-	
-	public static Item[] items = new Item[10];
-	
-	public static final int ITEMWIDTH = 32;
-	public static final int ITEMHEIGHT = 32;
-	
-	protected Handler handler;
-	protected BufferedImage texture;
-	protected String name;
-	protected final int id;
-	protected Rectangle bounds;
-	protected int x;
-	protected int y;
-	protected int count;
-	protected boolean pickedUp = false;
-	
-	public Item(BufferedImage texture, String name, int id) {
-		this.texture = texture;
-		this.name = name;
-		this.id = id;
-		count = 1;
-		
-		bounds = new Rectangle( x, y, ITEMWIDTH, ITEMHEIGHT);
-		
-		items[id] = this;
-	}
-	
-	public void tick() {
-		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
-			pickedUp = true;
-			handler.getWorld().getEntityManager().getPlayer().getInventory().additem(this);
-		}
-	}
-	
-	public void render(Graphics graphics) {
-		if(handler == null) {
-			return;
-		}
-		render(graphics, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()));
-	}
-	
-	public void render(Graphics graphics, int x, int y) {
-		graphics.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT, null);
-	}
-	
-	public Item createNew(int x, int y) {
-		Item i = new Item( texture, name, id);
-		i.setPosition(x,y);
-		return i;
-	}
-	
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
-		bounds.x = x;
-		bounds.y = y;
-	}
-	
-	public Handler getHandler() {
+    //Handler
+    public static Item[] items = new Item[10];
+    public static Item woodItem = new Item(Assets.wood, "Wood", 1);
+    public static Item emeraldItem = new Item(Assets.emerald, "Rupee", 2);
+    //Class
+    public static final int ITEMWIDTH = 32, ITEMHEIGHT = 32;
+
+    protected Handler handler;
+    protected BufferedImage texture;
+
+    protected String name;
+    protected final int id;
+
+    protected Rectangle bounds;
+
+    protected int x, y, count;
+    protected boolean pickedUp = false;
+
+    public Item(BufferedImage texture, String name, int id){
+        this.texture = texture;
+        this.name = name;
+        this.id = id;
+        count = 1;
+
+        bounds = new Rectangle( x, y, ITEMWIDTH, ITEMHEIGHT);
+
+        items[id] = this;
+    }
+
+    public void tick() {
+        if (handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds)) {
+            pickedUp = true;
+            handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
+        }
+    }
+
+    public void render(Graphics g){
+        if(handler == null){
+            return;
+        }
+        render(g, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()));
+    }
+
+    public void render(Graphics g, int x, int y){
+        g.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT, null);
+    }
+
+    public Item createNew( int x, int y){
+        Item i = new Item( texture, name, id);
+        i.setPosition( x, y);
+        return i;
+    }
+
+    public void setPosition( int x, int y){
+        this.x = x;
+        this.y = y;
+        bounds.x = x;
+        bounds.y = y;
+    }
+
+    //Getters and Setters
+    public Handler getHandler() {
         return handler;
     }
     public void setHandler(Handler handler) {
@@ -110,5 +112,4 @@ public class Item {
     public boolean isPickedUp() {
         return pickedUp;
     }
-
 }
