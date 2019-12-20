@@ -21,8 +21,8 @@ public class World {
         entityManager = new EntityManager(handler, new Player(handler, 100, 100));
         itemManager = new ItemManager(handler);
 
-        entityManager.addEntity(new LinkPot(handler, 400, 200));
-        entityManager.addEntity(new LinkPot(handler, 500, 200));
+//        entityManager.addEntity(new LinkPot(handler, 400, 200));
+//        entityManager.addEntity(new LinkPot(handler, 500, 200));
 
 //        entityManager.addEntity(new Tree(handler, 100, 800));
 //        entityManager.addEntity(new Tree(handler, 300, 800));

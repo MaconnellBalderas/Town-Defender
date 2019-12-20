@@ -6,8 +6,8 @@ public class Tile {
     //Static Objects
     public static Tile[] tiles = new Tile[3];
     public static Tile grassTile = new GrassTile(0);
-    public static Tile stoneTile = new StoneTile(1);
-    public static Tile dirtTile = new DirtTile(2);
+    public static Tile dirtTile = new DirtTile(1);
+    public static Tile stoneTile = new StoneTile(2);
 
     //Class
     public static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
